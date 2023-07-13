@@ -1,18 +1,17 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import {HelloWorld1} from './components/HelloWorld1';
-import {HelloWorld2} from './components/HelloWorld2';
-import {HelloWorld3} from './components/HelloWorld3';
+
+import {HelloWorld4_App} from './HelloWorld4_App';
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <HelloWorld1 user={'Pepa'} id={1}/>
-    <HelloWorld2 user={'Erika'} id={2}/>
-    <HelloWorld3 
+  
+    <HelloWorld4_App
       user={{name:'Rey', lastname: 'Pilaf'}} 
       id={3} 
       title='Hello... . '
+      book = 'El dios del mundo del vacío'
       />
   </React.StrictMode>
 )
