@@ -71,7 +71,11 @@ export const InvoiceApp01 = () => {
             quantity: parseInt(quantity, 10)
         }]);                                                                                                                                    
         setCounter(counter+1);
-   }  
+   }
+   
+   const handlerDeleteitem = (id) => {
+        setItems(items.filter(item => item.id !== id))
+   }
 
    const onActiveForm = () => {
         setActiveForm(!activeForm);
@@ -105,10 +109,10 @@ export const InvoiceApp01 = () => {
                             </div>
                         </div>
 
-                        /* TABLA */
-                       <TableItemsView title="Datos de la factura:" items={items}/>
+                        
+                       <TableItemsView title="Datos de la factura:" items={items} handlerDeleteitem={id => handlerDeleteitem(id)}/>
 
-                       /*TOTAL*/
+                       
                         <TotalView total= {total}/>
                         
                         <button className="btn btn-secondary" onClick={onActiveForm}>{ !activeForm ? 'Agregar item' : 'Ocultar form' }</button>

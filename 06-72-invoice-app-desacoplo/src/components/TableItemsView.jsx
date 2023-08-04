@@ -1,7 +1,7 @@
 import { SubRowItemView } from "./SubRowItemView"
 import PropTypes from  'prop-types'
 
-export const TableItemsView = ({title, items}) => {
+export const TableItemsView = ({title, items, handlerDeleteitem}) => {
 
     return(
         <>
@@ -13,21 +13,21 @@ export const TableItemsView = ({title, items}) => {
                             <th>Producto</th>
                             <th>Precio</th>
                             <th>Cantidad</th>
+                            <th>Eliminar</th>
                         </tr>
                     </thead>
                     <tbody>
                         {items.map(({id, product, price, quantity}) => {        //ESTA LINEA ESTA DESESTRUCTURADA, SE PODRIA PONER MAP(ITEM)  //EL ID SE AGREGÓ PQ DA UN ERROR EN EL FRONT. PIDE UN ID UNICO PARA EL TR, KEY = {ID}
                             return (
-
                                 /*ESTE ES UN SUB-ELEMENTO*/
-                                <SubRowItemView key={id} product={product} price={price} quantity={quantity}/>
-                                /*
-                                <tr key={id}>                                       
-                                    <td>{product}</td>
-                                    <td>{price}</td>
-                                    <td>{quantity}</td>
-                                </tr>
-                                */
+                                <SubRowItemView 
+                                key={id} 
+                                id={id}
+                                product={product} 
+                                price={price} 
+                                quantity={quantity}
+                                handlerDeleteitem={id => handlerDeleteitem(id)}
+                                />
                             )
                         })}
                     </tbody>
