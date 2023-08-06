@@ -19,6 +19,7 @@ export const InvoiceApp = () => {
 
 
     const {product, price, quantity} = formItemsState;
+    
     const[items, setItems] = useState(itemsInitial); 
     const[counter, setCounter] = useState(4);
 

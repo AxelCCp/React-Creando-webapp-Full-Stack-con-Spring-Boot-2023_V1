@@ -35,13 +35,10 @@ export const InvoiceApp = () => {
 
                         <div className="row my-3">
                             <div className="col">
-
                                 <h3>Datos del cliente</h3>
                                 <ClientView client={client}/>
-
                             </div>
                             <div className="col"> 
-                                
                                 <h3>Datos de la Empresa:</h3>
                                 <CompanyView company={company}/>
                             </div>
