@@ -1,6 +1,6 @@
 import PropTypes from  'prop-types';
 
-export const ItemsOpenView = ({itemsOpen}) => {
+export const ItemsOpenView = ({itemsOpen, handlerDeleteitem}) => {
 
     return( 
         <>
@@ -15,6 +15,7 @@ export const ItemsOpenView = ({itemsOpen}) => {
                     <th>Cantidad compra</th>
                     <th>Valor actual</th>
                     <th>Ganancia</th>
+                    <th>Eliminar</th>
                 </tr>
             </thead>
             <tbody>
@@ -28,6 +29,7 @@ export const ItemsOpenView = ({itemsOpen}) => {
                             <td>{quantity} {unit}</td>
                             <td>{coin} {value_now}</td>
                             <td>{coin} {profit}</td>
+                            <td><button className='btn btn-danger' onClick={() => handlerDeleteitem(id)}>eliminar</button></td>
                         </tr>
                     )
                 })}

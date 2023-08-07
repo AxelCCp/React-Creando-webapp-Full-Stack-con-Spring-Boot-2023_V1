@@ -8,6 +8,7 @@ import { TotalView } from "./components/TotalView";
 import { TotalOpenView } from "./components/TotalOpenView";
 import { useEffect, useState } from 'react';
 import { ItemsOpenView} from './components/ItemsOpenView';
+import { FormItemsView} from './components/FormItemsView';
 
 const inversionInitial = {
   id : 0,
@@ -38,6 +39,8 @@ const inversionInitial = {
 
 export const App = () => {
 
+  const[activeForm, setActiveForm] = useState(false);   
+
   const [totalInversionOpen, setTotalInversionOpen] = useState(0);
   const [totalValorActOpen, setTotalValorActOpen] = useState(0);
   const [totalProfitOpen, setTotalProfitOpen] = useState(0);
@@ -48,26 +51,14 @@ export const App = () => {
 
   const[itemsOpen, setItemsOpen] = useState([]); 
 
-  const [formItemsState, setFormItemsState] = useState({
-    index: '',                                                                              
-    product: '',
-    inversion: '',
-    quantity: '',
-    value_now: '',
-    profit: '',
-    coin: '',
-    unit: '',
-  });
-
   const {id, account, available, client, contact, itemsClose, totalInversion, totalValorAct, totalProfit} = inversion;          //, totalInversionOpen, totalValorActOpen, totalProfitOpen
   
-  const{index, product, inversionInit, quantity, value_now, profit, coin, unit} = formItemsState;
 
   useEffect(() => {                                                                               
     const data = getInversion();
     setInversion(data);
     setItemsOpen(data.itemsOpen);
-}, []); 
+  }, []); 
 
 useEffect(() => {   
   setTotalInversionOpen(calculatetotalInversionOpen(itemsOpen));
@@ -76,12 +67,34 @@ useEffect(() => {
 }, [itemsOpen]);  
   
 
-  const onInputChange = ({target: {name, value}}) => {                                                                                         
-        setFormItemsState({
-            ...formItemsState,
-            [name] : value                                                                                                                      
-        }); 
-  }
+
+//---
+const handlerAddItems = ({index, product, inversionInit, quantity, value_now, profit, coin, unit}) => {                                                                                                   
+  setItemsOpen([...itemsOpen, {                                                                                                                    
+      id:counter, 
+      index: index.trim(),
+      product: product.trim(),                                                                                                          
+      inversionInit: parseInt(inversionInit, 10), 
+      quantity: parseInt(quantity, 10),
+      value_now: parseInt(value_now, 10),
+      profit: parseInt(profit, 10),
+      coin: coin.trim(),
+      unit: unit.trim()
+  }]);                                                                                                                                    
+  setCounter(counter+1);
+}
+
+
+const handlerDeleteitem = (id) => {
+  setItemsOpen(itemsOpen.filter(itemsOpen => itemsOpen.id !== id))
+}
+
+const onActiveForm = () => {
+  setActiveForm(!activeForm);
+}
+//---
+
+  
 
 
   return(
@@ -117,107 +130,13 @@ useEffect(() => {
               </div>
 
               <div className='my-3'>
-                <ItemsOpenView itemsOpen={itemsOpen}/>
+                <ItemsOpenView itemsOpen={itemsOpen} handlerDeleteitem={id => handlerDeleteitem(id)}/>
                 <TotalOpenView totalInversionOpen={totalInversionOpen} totalValorActOpen={totalValorActOpen} totalProfitOpen={totalProfitOpen} />
               </div>
 
-              <form onSubmit={event => {
-                  event.preventDefault(); 
+              <button className="btn btn-secondary" onClick={onActiveForm}>{ !activeForm ? 'Agregar activo' : 'Ocultar formulario' }</button>
 
-                  if(index.trim().length < 1) return;
-                  if(product.trim().length < 1) return;
-
-                  if(isNaN(inversionInit.trim().length < 1)) return;
-                  if(isNaN(inversionInit.trim())) return;
-
-                  if(isNaN(quantity.trim().length < 1)) return;
-                  if(isNaN(quantity.trim())) return;
-
-                  if(isNaN(value_now.trim().length < 1)) return;
-                  if(isNaN(value_now.trim())) return;
-
-                  if(isNaN(profit.trim().length < 1)) return;
-                  if(isNaN(profit.trim())) return;
-
-                  if(coin.trim().length < 1) return;
-                  if(unit.trim().length < 1) return;
-
-                  setItemsOpen([...itemsOpen, {                                                                                  
-                    id : counter,
-                    index: index.trim(),
-                    product : product.trim(),
-                    inversionInit : parseFloat(inversionInit,10),
-                    quantity : parseFloat(quantity,10),
-                    value_now : parseFloat(value_now,10), 
-                    profit : parseFloat(profit, 10),
-                    coin : coin.trim(),
-                    unit : unit.trim() 
-                }]);
-
-                setFormItemsState({
-                  index: '',                                                                              
-                  product: '',
-                  inversionInit: '',
-                  quantity: '',
-                  value_now: '',
-                  profit: '',
-                  coin: '',
-                  unit: '',
-              });
-                setCounter(counter+1);
-              }}>
-
-                <input type="text" name="index" 
-                          placeholder="index" 
-                          value={index} 
-                          className="form-control m-3" 
-                          onChange={event => onInputChange(event)}/>
-
-                <input type="text" name="product" 
-                          placeholder="activo" 
-                          value={product} 
-                          className="form-control m-3" 
-                          onChange={event => onInputChange(event)}/>
-
-                <input type="text" name="inversionInit" 
-                          placeholder="inversionInit" 
-                          value={inversionInit} 
-                          className="form-control m-3" 
-                          onChange={event => onInputChange(event)}/>
-                
-                <input type="text" name="quantity" 
-                          placeholder="cantidad" 
-                          value={quantity} 
-                          className="form-control m-3" 
-                          onChange={event => onInputChange(event)}/>
-                
-                <input type="text" name="value_now" 
-                          placeholder="valor actual" 
-                          value={value_now} 
-                          className="form-control m-3" 
-                          onChange={event => onInputChange(event)}/>
-
-                <input type="text" name="profit" 
-                          placeholder="ganancia" 
-                          value={profit} 
-                          className="form-control m-3" 
-                          onChange={event => onInputChange(event)}/>
-
-                <input type="text" name="coin" 
-                          placeholder="moneda" 
-                          value={coin} 
-                          className="form-control m-3" 
-                          onChange={event => onInputChange(event)}/>
-
-                <input type="text" name="unit" 
-                          placeholder="unidad" 
-                          value={unit} 
-                          className="form-control m-3" 
-                          onChange={event => onInputChange(event)}/>
-
-                <button type="submit" className="btn btn-primary m-3">Nuevo activo</button>
-
-              </form>
+              { !activeForm ? '' : <FormItemsView handler={(newItem) => handlerAddItems(newItem)} /> }
 
             </div>
 
