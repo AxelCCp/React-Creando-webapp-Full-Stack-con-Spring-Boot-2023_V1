@@ -31,7 +31,7 @@ export const products = [
         price : 300
     },
     {
-        id : 5,
+        id : 6,
         name : 'monitor',
         description : '',
         price : 500

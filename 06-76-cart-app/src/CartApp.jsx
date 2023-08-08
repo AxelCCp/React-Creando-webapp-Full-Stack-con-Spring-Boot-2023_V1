@@ -1,77 +1,42 @@
+import { useEffect } from "react";
+import { getProducts } from "./services/productService"
+import { useState } from "react";
 
 
 export const CartApp = () => {
+
+    //se usa el useeffect para q el metodo se ejecute solo una vez, cuando se inicia el componente,  de otro modo , si se  llama a la funcion así nomas "const products = getProducts();" con cada cambio q se haga en la pagina, va a estar llamando al back.
+    //hay q manejar un usestate ,  un state para productos. los productos se le pasan al estado de react.
+    
+    const [products, setProducts] = useState([]);
+    useEffect(
+        () => {
+            setProducts(getProducts());
+        }, []
+    )
+
     return(
         <>
         
             <div className="container">
                 <h3>Cart app</h3>
                 <div className="row">
-                    <div className="col-4 my-2">
+                    { products.map(prod => (
+
+                        <div className="col-4 my-2" key={prod.id}>
                         <div className="card">
                             <div className="card-body">
-                                <h5 className="card-title">Teclado mecanico rgb</h5>
-                                <p className="card-text">teclado mecanico con luces rgb y switch cherry red</p>
-                                <p className="card-text">$ 1000</p>      
+                                <h5 className="card-title">{prod.name}</h5>
+                                <p className="card-text">{prod.description}</p>
+                                <p className="card-text">$ {prod.price}</p>      
                                 <button className="btn btn-primary">agregar</button>  
                             </div>
                         </div>
                     </div>
 
-                    <div className="col-4 my-2">
-                        <div className="card">
-                            <div className="card-body">
-                                <h5 className="card-title">Samsung smart tv</h5>
-                                <p className="card-text">ajhkdadasdaad</p>
-                                <p className="card-text">$ 700</p>      
-                                <button className="btn btn-primary">agregar</button>  
-                            </div>
-                        </div>
-                    </div>
+                    ))}
+                    
 
-                    <div className="col-4 my-2">
-                        <div className="card">
-                            <div className="card-body">
-                                <h5 className="card-title">smart phone</h5>
-                                <p className="card-text">kjhkjhjkhkjh</p>
-                                <p className="card-text">$ 6000</p>      
-                                <button className="btn btn-primary">agregar</button>  
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="col-4 my-2">
-                        <div className="card">
-                            <div className="card-body">
-                                <h5 className="card-title">pc gamer</h5>
-                                <p className="card-text">uiyuyuiyiuyuiyiuyiuy</p>
-                                <p className="card-text">$ 3000</p>      
-                                <button className="btn btn-primary">agregar</button>  
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="col-4 my-2">
-                        <div className="card">
-                            <div className="card-body">
-                                <h5 className="card-title">mouse</h5>
-                                <p className="card-text">mbzmcbzcbnmxzbzx</p>
-                                <p className="card-text">$ 300</p>      
-                                <button className="btn btn-primary">agregar</button>  
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="col-4 my-2">
-                        <div className="card">
-                            <div className="card-body">
-                                <h5 className="card-title">monitor</h5>
-                                <p className="card-text">ahgjhagdsdasdasd adad</p>
-                                <p className="card-text">$ 500</p>      
-                                <button className="btn btn-primary">agregar</button>  
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
                 <div className="my-4 w-50">
