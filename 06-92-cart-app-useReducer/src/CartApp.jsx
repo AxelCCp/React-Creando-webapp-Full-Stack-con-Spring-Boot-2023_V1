@@ -1,55 +1,48 @@
-import { useState } from "react"
+import { useEffect, useReducer, useState } from "react"
 import { Cartview } from "./components/Cartview"
 import { CatalogView } from "./components/CatalogView"
 import { products } from "./data/products"
+import { itemsReducer } from "./reducer/itemsReducer";
+import { AddProductCart, DeleteProductCart, UpdateQuantityProductCart } from "./reducer/itemsActions";
 
 const initialCartItems = JSON.parse(sessionStorage.getItem('cart')) || [];      //initialCartItems va a ser esto sies q contiene algo "JSON.parse(sessionStorage.getItem('cart'))"  o esto "[]" si eta vació lo anterior.   
 
 export const CartApp = () => {
 
-    const [cartItems, setCartItems] = useState(initialCartItems);                                           //se le pasan los datos por defecto q va a tener el car items.
-     
+    const [cartItems, dispatch ] = useReducer(itemsReducer, initialCartItems);                           //dispatch en la palabra clave q recibirá el switch en itemsreducer.  a usereducer se le pasa la funcion itemsreducer. y se le pasa el estado inicial del carro.
+    
+    //94 - cuando cambia cartitems, se actualiza el carro en el sessionstorage. se usa para q al eliminar todos los item y lugo actualizar, no vuelva a aparecer el ultimo item q ya se habia eliminado.
+    useEffect(() => {
+        sessionStorage.setItem('cart', JSON.stringify(cartItems));
+    }, [cartItems])
+
     const handlerAddProductCart = (product) => {
         
         const hasItem = cartItems.find((i) => i.product.id === product.id);                                 //valida si el item ya existe. si existem aumenta la cantidad, sino lo agrega al carro.
         
         if(hasItem){
            
-            //CON FILTER 
-            /*setCartItems([                                                                                   //1ro se agregan todos los productos q son diferentes al producto q se agrega al carro de compra.                                                                    
-                ...cartItems.filter((i) => i.product.id !== product.id), 
-                {
-                    product,                                                                                //luego agrega el item con la nueva cantidad.
-                    quantity: hasItem.quantity + 1,
-                }
-            ])*/
-
-            //COM MAP
-            setCartItems(
-                cartItems.map((i) => {
-                    if(i.product.id === product.id){
-                        i.quantity = i.quantity + 1;
-                    }
-                    return i;
-                })
-            )
+            dispatch({
+                type : UpdateQuantityProductCart,
+                payload : product
+            });
 
         }else{
-            setCartItems([
-                ...cartItems,                                                                               //se conservan los datos q ya se tienen en el carro de compras.
-                {
-                    product,                                                                                // esto es igual a product : product.
-                    quantity: 1,
-                }
-            ]);
+
+            dispatch({
+                type : AddProductCart,
+                payload : product
+            });
+
         }
     }
 
 
     const handlerDeleteProductCart = (id) => {
-        setCartItems([
-            ...cartItems.filter((i) => i.product.id !== id)
-        ])
+        dispatch({
+            type : DeleteProductCart,
+            payload : id
+        });
     }
 
 
