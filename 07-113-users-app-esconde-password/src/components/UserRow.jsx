@@ -1,4 +1,4 @@
-export const UserRow = ({handlerUserSelectedForm, handlerRemoveUser, id, username, email, password}) => {                                    // user desestructurado: se pone {user desestructurado} pq es solo un usuario por fila.             
+export const UserRow = ({handlerUserSelectedForm, handlerRemoveUser, id, username, email}) => {                                    // user desestructurado: se pone {user desestructurado} pq es solo un usuario por fila.             
     
    
     return(
@@ -9,8 +9,7 @@ export const UserRow = ({handlerUserSelectedForm, handlerRemoveUser, id, usernam
             <td><button type="button" className="btn btn-secondary btn-sm" onClick={() => handlerUserSelectedForm({
                 id : id,
                 username : username,
-                email : email,
-                password : password
+                email : email
             })}>update</button></td>
             <td><button type="button" className="btn btn-danger btn-sm" onClick={() => handlerRemoveUser(id)}>remove</button></td>
         </tr>

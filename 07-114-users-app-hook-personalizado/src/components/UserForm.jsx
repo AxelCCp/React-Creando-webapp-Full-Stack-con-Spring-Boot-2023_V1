@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 
 
 export const UserForm = ({userSelected, handlerAddUser, initialUseForm}) => {
@@ -10,7 +11,7 @@ export const UserForm = ({userSelected, handlerAddUser, initialUseForm}) => {
     useEffect(() => {
         setUserForm({
             ...userSelected,
-            //password : '',
+            password : '',                                                                              //como seguridad para limpiar el password
 
         }); 
     }, [userSelected]);
@@ -26,8 +27,14 @@ export const UserForm = ({userSelected, handlerAddUser, initialUseForm}) => {
 
 const onSubmit = (event) => {
     event.preventDefault();                                                                         //esto es para q cuando se envie el formulario,  no se actualice la pagina.
-    if(!username || !password || !email){
-        alert("debe completar los campos del formulario");
+    if(!username || (!password && id === 0) || !email){                                             //(!password && id === 0) : que valide cuando no venga el password y el id sea === a 0. esto es para q no pida validacion de password en el formulario, cuando se está editando un usuario.
+        
+        Swal.fire(
+            'Error de validación',
+            'Debe completar los campos del formulario',
+            'error'
+          )
+
         return;
     }
     console.log('enviando el formulario..');
@@ -42,7 +49,7 @@ return(
     <form onSubmit={onSubmit}>
         <input className="form-control my-3 w-75" placeholder="username" name="username" value={username} onChange={ onInputChange }/>
 
-        <input className="form-control my-3 w-75" placeholder="password" name="password" type="password" value={password} onChange={ onInputChange }/>
+        { id > 0 ? '' : <input className="form-control my-3 w-75" placeholder="password" name="password" type="password" value={password} onChange={ onInputChange }/> }
 
         <input className="form-control my-3 w-75" placeholder="email" name="email" onChange={ onInputChange } value={email}/>
 
