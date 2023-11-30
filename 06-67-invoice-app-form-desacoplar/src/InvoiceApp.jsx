@@ -10,29 +10,58 @@ export const InvoiceApp = () => {
 
     const {total, id, name, client, company, items: itemsInitial} = getInvoice();
 
-    //68 UN SOLO STATE PARA TODOS LOS INPUT
+    /* //67
+    const[productValue, setProductValue] = useState('');
+    const[priceValue, setPriceValue] = useState('');
+    const[quantityValue, setQuantityValue] = useState('');
+    */
+
+    //68 UN SOLO STATE PARA TODOS LOS INPUT ------------------
     const [formItemsState, setFormItemsState] = useState({
         product: '',                                                                               // '' valores por defecto 
         price: '',
         quantity: '',
     });
 
-
     const {product, price, quantity} = formItemsState;
+
+    //--------------------------------------------------------
     
     const[items, setItems] = useState(itemsInitial); 
+    
     const[counter, setCounter] = useState(4);
 
 
-    //67 DESACOPLO
-    const onInputChange = ({target: {name, value}}) => {                                                                                         //DEL TARGET SE DESESTRUCTURA EL NAME Y EL VALUE
+
+    //68 se juntan los onchange
+    const onInputChange = ({target: {name, value}}) => {                                                                                         //DEL TARGET DEL FORMULARIO SE DESESTRUCTURA EL NAME Y EL VALUE.
+        
         console.log(name); 
         console.log(value); 
+        
         setFormItemsState({
-            ...formItemsState,
-            [name] : value                                                                                                                      //[AGREGA EL NOMBRE DEL CAMPO] : Y SU VALOR
+            ...formItemsState,                                                                                                                  //se mantienen los datos que se tienen en cada campo que no se modificó.
+            [name] : value                                                                                                                      //[AGREGA EL NOMBRE DEL CAMPO] : Y SU VALOR. Estos son nombre y valor variables, según el campo. Es una propiedad computada del objeto.
         }); 
+  
     }
+
+    /* //67
+    const onProductChange = ({target}) => {
+        console.log(target.value);
+        setProductValue(target.value);
+    } 
+
+    const onPriceChange = ({target}) => {
+        console.log(target.value);
+        setProductValue(target.value);
+    } 
+
+    const onQuantityChange = ({target}) => {
+        console.log(target.value);
+        setProductValue(target.value);
+    } 
+    */
  
     
     const onInvoiceItemsSubmit = (event) => {                                                                                                    //SE PASA EL EVENT SIN DESESTRUCTURAR
@@ -40,28 +69,43 @@ export const InvoiceApp = () => {
         event.preventDefault();                                                                                                                 //PREVIENE LA PERDIDA DE INFO SI ES Q SE RECARGA LA PAGINA. 
         
         if(product.trim().length <= 1) return;
+        
         if(price.trim().length <= 1) return;
+        
         if(isNaN(price.trim())) {
             alert('El valor ingersado no es un número');    
             return;
         }
+        
         if(quantity.trim().length < 1) return;
+        
         if(isNaN(quantity.trim())) {
             alert('El valor ingersado no es un número');  
             return;
         }       
-        setItems([...items, {                                                                                                                    //AGREGA UN NUEVO ELEMENTO  AL ARRAY DE ELEMENTOS.
+        
+        setItems([...items, {                                                                                                                //AGREGA UN NUEVO ELEMENTO  AL ARRAY DE ELEMENTOS.
             id:counter, 
             product:product.trim(),                                                                                                          //SE QUITAN LOS ESPACIOS EN BLANCO A LA IZQ Y DER. 
             price:parseInt(price, 10), 
             quantity: parseInt(quantity, 10)
         }]);
-                                                                                                                                                //SE LIMPIAN LOS DATOS DEL FOMULARIO DESPUES DE AGREGAR EL PRODUCTO.
+
+        
+        /* //67
+        setProductValue('');
+        setPriceValue('');
+        setQuantityValue('');
+        */
+                                                                                                                                            //SE LIMPIAN LOS DATOS DEL FOMULARIO DESPUES DE AGREGAR EL PRODUCTO.
+        
+        //68                                                                                                                                        
         setFormItemsState({
             product: '',                                                                               
             price: '',
             quantity: '',
         });
+        
         setCounter(counter+1);
    }  
 

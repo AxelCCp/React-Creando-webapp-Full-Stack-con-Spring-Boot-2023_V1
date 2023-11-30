@@ -5,7 +5,7 @@ export const Cartview = ({items, handlerDelete}) => {
 
     const [total, setTotal] = useState(0);
 
-    useEffect(() => {
+    useEffect(() => {                                                                                           //Este useEffect solo se encarga de actualizar el total. Se quitó el guardar total en la session, esto se manda a cartapp.
         setTotal(calculateTotal(items));
     }, [items])
 

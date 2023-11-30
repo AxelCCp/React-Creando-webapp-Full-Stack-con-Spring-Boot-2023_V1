@@ -12,7 +12,7 @@ export const CartApp = () => {
     useEffect(
         () => {
             setProducts(getProducts());
-        }, []
+        }, []                                                                                    // []  con los corchetes se dice q solo se va a ejecutar el useEffect cuando se inicie el componente.
     )
 
     return(

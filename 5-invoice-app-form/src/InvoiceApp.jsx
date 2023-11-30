@@ -10,13 +10,15 @@ export const InvoiceApp = () => {
 
     const {total, id, name, client, company, items: itemsInitial} = getInvoice();
 
-    const[productValue, setProductValue] = useState('');
-    const[priceValue, setPriceValue] = useState('');
-    const[quantityValue, setQuantityValue] = useState('');
+    const[productValue, setProductValue] = useState('');                                // '' : el valor inicial es "sin valor", campo vacio.
+    
+    const[priceValue, setPriceValue] = useState('');                                    //  useState(0);
+    
+    const[quantityValue, setQuantityValue] = useState('');                              //  useState(0);
 
-    const[items, setItems] = useState(itemsInitial); 
+    const[items, setItems] = useState(itemsInitial);                                    //  itemsInitial : estado inicial de los items (es el valor que se renombra en el getInvoice).  items : es el valor que es manejado por el useState.
 
-    const[counter, setCounter] = useState(4);
+    const[counter, setCounter] = useState(4);                                           //  se asigna el valor inicial en 4.
 
     return (
         <>
@@ -51,33 +53,45 @@ export const InvoiceApp = () => {
                        <TotalView total= {total}/>
 
                        <form className="w-50" onSubmit={event => {
+                            
                             event.preventDefault();                                                                                 //PREVIENE LA PERDIDA DE INFO SI ES Q SE RECARGA LA PAGINA. 
                             
                             if(productValue.trim().length <= 1) return;
+                            
                             if(priceValue.trim().length <= 1) return;
+                            
                             if(isNaN(priceValue.trim())) {
                                 alert('El valor ingersado no es un número');    
                                 return;
                             }
+                            
                             if(quantityValue.trim().length < 1) return;
+                            
                             if(isNaN(quantityValue.trim())) {
                                 alert('El valor ingersado no es un número');  
                                 return;
                             }       
-                            setItems([...items, {                                                                                   //AGREGA UN NUEVO ELEMENTO  AL ARRAY DE ELEMENTOS.
+                            
+                            setItems([...items, {                                                                                   //AGREGA UN NUEVO ELEMENTO  AL ARRAY DE ELEMENTOS.   // ...items :  mantiene los elementos anteriores y agrega los nuevos.
                                 id:counter, 
                                 product:productValue.trim(),                                                                        //SE QUITAN LOS ESPACIOS EN BLANCO A LA IZQ Y DER. 
                                 price:parseInt(priceValue, 10), 
                                 quantity: parseInt(quantityValue, 10)
                             }]);
-                            //SE LIMPIAN LOS DATOS DEL FOMULARIO DESPUES DE AGREGAR EL PRODUCTO.
+                            
+                                                                                                                                    //SE LIMPIAN LOS DATOS DEL FOMULARIO DESPUES DE AGREGAR EL PRODUCTO.
                             setProductValue('');
                             setPriceValue('');
                             setQuantityValue('');
                             setCounter(counter+1);
+
                        }}>
+                                                                                                                                    {/*  value : se usa para poder resetear el valor del input al apretar el boton de nuevo tem.*/}    
+
                             <input type="text" name="product" placeholder="Producto" value={productValue} className="form-control m-3" onChange={event => {console.log(event.target.value); setProductValue(event.target.value); }}/>
+                            
                             <input type="number" name="price" placeholder="Precio" value={priceValue} className="form-control m-3" onChange={event => {console.log(event.target.value); setPriceValue(event.target.value); }}/>
+                            
                             <input type="number" name="quantity" placeholder="Cantidad" value={quantityValue} className="form-control m-3" onChange={event => {console.log(event.target.value); setQuantityValue(event.target.value); }}/>
                        
                             <button type="submit" className="btn btn-primary m-3">Nuevo item</button>

@@ -3,7 +3,7 @@ import { Cartview } from "./components/Cartview"
 import { CatalogView } from "./components/CatalogView"
 import { products } from "./data/products"
 
-const initialCartItems = JSON.parse(sessionStorage.getItem('cart')) || [];      //initialCartItems va a ser esto sies q contiene algo "JSON.parse(sessionStorage.getItem('cart'))"  o esto "[]" si eta vació lo anterior.   
+const initialCartItems = JSON.parse(sessionStorage.getItem('cart')) || [];                                  //inicialización del carro de compras con datos almacenado es session - se pasa de un string a un obj de javascript - initialCartItems va a ser esto si es q contiene algo "JSON.parse(sessionStorage.getItem('cart'))"  o esto "[]" si está vacio lo anterior.   
 
 export const CartApp = () => {
 
@@ -16,7 +16,7 @@ export const CartApp = () => {
         if(hasItem){
            
             //CON FILTER 
-            /*setCartItems([                                                                                   //1ro se agregan todos los productos q son diferentes al producto q se agrega al carro de compra.                                                                    
+            /*setCartItems([                                                                                //1ro se agregan todos los productos q son diferentes al producto q se agrega al carro de compra.                                                                    
                 ...cartItems.filter((i) => i.product.id !== product.id), 
                 {
                     product,                                                                                //luego agrega el item con la nueva cantidad.
@@ -56,6 +56,7 @@ export const CartApp = () => {
     return(
         <>
             <div className="container my-4">
+                
                 <h3>Cart app</h3>
 
                 <CatalogView 

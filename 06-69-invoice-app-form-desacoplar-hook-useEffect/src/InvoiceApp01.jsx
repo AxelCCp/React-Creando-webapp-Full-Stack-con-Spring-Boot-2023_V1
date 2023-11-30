@@ -34,7 +34,7 @@ export const InvoiceApp01 = () => {
 
     const [invoice, setInvoice] = useState(invoiceInitial);                                        //con use state la factura es manejada por el estado de rect. se define el estado de la factura.
 
-    const[items, setItems] = useState([]); 
+    const[items, setItems] = useState([]);                                                         //[] en el useState no se define la lista de items, ya q se define mas abajo con el useffect.
     
     const [formItemsState, setFormItemsState] = useState({                                         //68 UN SOLO STATE PARA TODOS LOS INPUT
         product: '',                                                                               // '' valores por defecto 
@@ -46,12 +46,13 @@ export const InvoiceApp01 = () => {
 
     const {product, price, quantity} = formItemsState;
 
-    useEffect(() => {                                                                               //ESTO ES PARA MODIFICAR LA INVOICE EN UN EVENTO DEL CICLO DE VIDA Q SE EJECUTA LA 1RA VEZ, CUANDO SE CREA EL COMPONENTE.
+    //69
+    useEffect(() => {                                                                               //ESTO ES PARA MODIFICAR LA INVOICE EN UN EVENTO DEL CICLO DE VIDA Q SE EJECUTA LA 1RA VEZ, CUANDO SE CREA EL COMPONENTE. al obtener el invoice por 1ra vez , se guarda en el estado de react con el usestate. para esto es el setinvoice.
         const data = getInvoice();
         console.log(invoice);
-        setInvoice(data);
-        setItems(data.items);
-    }, []);   
+        setInvoice(data);                                                                           //despues de que va a buscar la factura con l getInvoice, la establece con el set.
+        setItems(data.items);                                                                       //actualiza los items de la factura. sino no aparececen al iniciar la app.
+    }, []);                                                                                         //[] este es un arreglo que contiene una lista de dependencias ... cuando este arreglo [] está vacio quiere decir que este efecto secundario cuando se crea el componente. [] puede contener dependencias, variables, etc ,  q pueden ser modificados al ejecutar el evento.
     
     useEffect(() => {
         console.log('el precio ha sido modificado')                                                 // [] cuando un cambio en la dependencia q esta dentro de [], se ejecuta el codigo q esta dentro de {}

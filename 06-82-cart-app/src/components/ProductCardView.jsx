@@ -1,7 +1,7 @@
 
 export const ProductCardView = ({handler, id, name, description, price}) => {
   
-  const onAddProduct = (product) => {
+  const onAddProduct = (product) => {                                       //recibe por argumento el producto del card que esta en este jsx.
     console.log(product);
     handler(product);                                                       //se llama a la funcion y se pasa el producto a traves de los componentes padre hasta llegar a CartApp para agegarlo al carro.
   }

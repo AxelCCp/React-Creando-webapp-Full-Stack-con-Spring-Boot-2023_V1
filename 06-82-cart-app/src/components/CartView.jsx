@@ -3,10 +3,11 @@ import { calculateTotal } from "../services/productService";
 
 export const Cartview = ({items, handlerDelete}) => {
 
-    const [total, setTotal] = useState(0);
-    useEffect(() => {
+    const [total, setTotal] = useState(0);                                                      //recibe un valor por defecto de 0.
+    
+    useEffect(() => {                                                                           //cuando cambien los items, se debe recalcular el total, por eso se usa [items].    
         setTotal(calculateTotal(items));
-        sessionStorage.setItem('cart', JSON.stringify(items))
+        sessionStorage.setItem('cart', JSON.stringify(items))                                   //junto con calcular el total, se guarda el obj item como string en la session del navegador. Luego los items se deben inicializar en el cart app.   
     }, [items])
 
     const onDeleteProduct = (id) => {

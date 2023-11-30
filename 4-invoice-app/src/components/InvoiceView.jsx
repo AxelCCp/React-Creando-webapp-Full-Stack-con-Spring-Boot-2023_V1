@@ -12,7 +12,8 @@ export const InvoiceView = ({id, name}) => {
     )
 }
 
-InvoiceView.propTypes = {
+
+InvoiceView.propTypes = {                                                                               //valida que vengan los datos desde invoice app.
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
 }

@@ -5,20 +5,22 @@ import { products } from "./data/products"
 import { itemsReducer } from "./reducer/itemsReducer";
 import { AddProductCart, DeleteProductCart, UpdateQuantityProductCart } from "./reducer/itemsActions";
 
-const initialCartItems = JSON.parse(sessionStorage.getItem('cart')) || [];      //initialCartItems va a ser esto sies q contiene algo "JSON.parse(sessionStorage.getItem('cart'))"  o esto "[]" si eta vació lo anterior.   
+const initialCartItems = JSON.parse(sessionStorage.getItem('cart')) || [];                               //initialCartItems va a ser esto sies q contiene algo "JSON.parse(sessionStorage.getItem('cart'))"  o esto "[]" si eta vació lo anterior.   
 
 export const CartApp = () => {
 
+                                                                                                         //useReducer es similar a useState, pero reducer se usa cuando hay más complejidad.
     const [cartItems, dispatch ] = useReducer(itemsReducer, initialCartItems);                           //dispatch en la palabra clave q recibirá el switch en itemsreducer.  a usereducer se le pasa la funcion itemsreducer. y se le pasa el estado inicial del carro.
     
-    //94 - cuando cambia cartitems, se actualiza el carro en el sessionstorage. se usa para q al eliminar todos los item y lugo actualizar, no vuelva a aparecer el ultimo item q ya se habia eliminado.
+                                                                                                         //94 - cuando cambia cartitems, se actualiza el carro en el sessionstorage. se usa para q al eliminar todos los item y lugo actualizar, no vuelva a aparecer el ultimo item q ya se habia eliminado.
     useEffect(() => {
-        sessionStorage.setItem('cart', JSON.stringify(cartItems));
+        sessionStorage.setItem('cart', JSON.stringify(cartItems));                                       //si hay un cambio en cartItems, es aquí donde se guarda el registro en el sessionStorage.
     }, [cartItems])
 
+    
     const handlerAddProductCart = (product) => {
         
-        const hasItem = cartItems.find((i) => i.product.id === product.id);                                 //valida si el item ya existe. si existem aumenta la cantidad, sino lo agrega al carro.
+        const hasItem = cartItems.find((i) => i.product.id === product.id);                              //valida si el item ya existe. si existem aumenta la cantidad, sino lo agrega al carro.
         
         if(hasItem){
            
