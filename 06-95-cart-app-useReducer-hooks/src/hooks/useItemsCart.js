@@ -2,7 +2,7 @@ import { useEffect, useReducer } from "react";
 import { itemsReducer } from "../reducer/itemsReducer";
 import { AddProductCart, DeleteProductCart, UpdateQuantityProductCart } from "../reducer/itemsActions";
 
-// LOS HOOKS SON PARA IMPLEMENTAR CIERTA LOGICA DE NEOCIO EN EL FRONT
+// LOS HOOKS SON PARA IMPLEMENTAR CIERTA LOGICA DE NEGOCIO EN EL FRONT - CON ESTE HOOKS DESACOPLAMOS EL CÓDIGO QUE ESTABA EN CARTAPP.
 
 const initialCartItems = JSON.parse(sessionStorage.getItem('cart')) || [];                                              //initialCartItems va a ser esto sies q contiene algo "JSON.parse(sessionStorage.getItem('cart'))"  o esto "[]" si esta vació lo anterior.   
 

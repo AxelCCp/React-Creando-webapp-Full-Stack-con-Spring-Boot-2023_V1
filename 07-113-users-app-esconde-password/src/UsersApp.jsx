@@ -13,6 +13,7 @@ const initialUsers = [
     },
 ];
 
+
 const initialUseForm = {                                                                            //deberia llamarse initialUserForm
     id : 0, 
     username: '',
@@ -20,10 +21,10 @@ const initialUseForm = {                                                        
     email: '',
 }
 
+
 export const UsersApp = () => {
 
     const[users, dispatch] = useReducer(usersReducer, initialUsers);                                //users : es la nueva constante donde va a estar la lista de usuarios. esta lista se va a modificar con el dispatch. //dispatch : permite modificar el estado hacia la funcion. //usereducer : recibe la funcion usersReducer y los valores iniciales.
-
 
     const[userSelected, setUserSelected] = useState(initialUseForm);                                //esto es para editar a un usuario. se usa el useState() pq es solo para seleccionar un obj usuario. se podría usa el useReducer, pero este es mejor cuando son varias las operaciones q se pueden realizar con un obj. Al useState se le pasa un usuario por defecto initialUseForm
 
@@ -39,7 +40,7 @@ export const UsersApp = () => {
         }
 
         dispatch({                                                                                  //aqui se envian y aplican los cambios por medio del dispatch.
-            type: type,                                                                        //nombre de la funcion.
+            type: type,                                                                             //nombre de la funcion.
             payload: user,                                                                          //action.payload,  el obj usuario.
         })
     }

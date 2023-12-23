@@ -10,19 +10,28 @@ const initialLoginForm = {
 
 export const LoginPage = () => {
 
-    const [loginForm, setLoginForm] = useState(initialLoginForm);                                                   //con el useState se le da un estado inicial al formulario de login.
-    const { username, password} = loginForm;                                                                        //desestructurando los datos.
+    const [loginForm, setLoginForm] = useState(initialLoginForm);                                                   //con el useState se le da un estado inicial al formulario de login. El value se maneja con el estado. initialLoginForm : el estado inicial del formulario.
     
-    const onInputChange = ({target}) => {                                                                               //es una funcion de flecha q incluye como parametro el "target". esto quiere decir que como parametro se pasa el obj 'event'. y al poner la palabra 'target', se está desestructurando la propiedad target que es la q nos sirve.
-        const { name,  value } = target;                                                                            //se desestructura el target en name y value.
-        setLoginForm({                                                                                              //va a ser un obj. ..... va a esparcir todo lo q tenga el login form y ademas el valor del campo q se está escribiendo.
-            ...loginForm,
-            [name] : value
-        })
+    const { username, password} = loginForm;                                                                        //desestructurando los datos del loginForm. Luego estos valores se mapean a cada imput del formulario cuando inicialmente los datos vienen de initialLoginForm.
+    
+
+    const onInputChange = ({target}) => {                                                                           //es una funcion de flecha q incluye como parametro el "target". esto quiere decir que como parametro se pasa el obj 'event'. y al poner la palabra 'target', se está desestructurando la propiedad target que es la q nos sirve.
+        
+      const { name,  value } = target;                                                                              //se desestructura el target en name y value.
+      
+      setLoginForm({                                                                                                //va a ser un obj. ..... va a esparcir todo lo q tenga el login form y ademas el valor del campo q se está escribiendo.
+          ...loginForm,
+          [name] : value
+      });
+    
     }
 
+
+
     const onSubmit = (event)  => {
-      event.preventDefault();
+
+      event.preventDefault();                                                                                       //para que no haga refresh la pagina.
+
       if(!username || !password){
         Swal.fire('Error de validación', 'Username y password requeridos', 'error');
       }
@@ -34,9 +43,8 @@ export const LoginPage = () => {
         Swal.fire('Error de login', 'Username o password incorrectos', 'error');
       }
 
-      setLoginForm(initialLoginForm);                                                                                 //reinicia el formulario
+      setLoginForm(initialLoginForm);                                                                                 //reinicia el formulario.
       
-
     }
     
     return (

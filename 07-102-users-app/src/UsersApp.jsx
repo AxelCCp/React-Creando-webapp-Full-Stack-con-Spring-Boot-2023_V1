@@ -27,7 +27,7 @@ export const UsersApp = () => {
 
     const[userSelected, setUserSelected] = useState(initialUseForm);                                //esto es para editar a un usuario. se usa el useState() pq es solo para seleccionar un obj usuario. se podría usa el useReducer, pero este es mejor cuando son varias las operaciones q se pueden realizar con un obj. Al useState se le pasa un usuario por defecto initialUseForm
 
-    const handlerAddUser = (user) => {
+    const handlerAddUser = (user) => {                                                              //funcion para agregar al nuevo usuario a la lista del estado de react.
         //console.log(user);
         
         let type;
@@ -68,19 +68,25 @@ export const UsersApp = () => {
                 <h2>User app</h2>
 
                 <div className="row">
+
                     <div className="col">
                         <UserForm
                             initialUseForm={initialUseForm}      
                             handlerAddUser={handlerAddUser}
                             userSelected={userSelected}
-                            />
+                        />
                     </div>
 
                     <div className="col">
                         {users.length === 0 ? 
                         <div className="alert alert-warning">No hay usuarios en el sistema!</div> : 
-                        <UsersList users={users} handlerRemoveUser={handlerRemoveUser} handlerUserSelectedForm={handlerUserSelectedForm}/> }                                                    
+                        <UsersList 
+                            users={users} 
+                            handlerRemoveUser={handlerRemoveUser} 
+                            handlerUserSelectedForm={handlerUserSelectedForm}
+                        /> }                                                    
                     </div>
+                    
                 </div>
 
             </div>

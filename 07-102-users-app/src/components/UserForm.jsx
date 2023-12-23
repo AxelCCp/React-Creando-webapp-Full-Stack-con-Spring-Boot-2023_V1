@@ -15,28 +15,31 @@ export const UserForm = ({userSelected, handlerAddUser, initialUseForm}) => {
         }); 
     }, [userSelected]);
 
+
     const onInputChange = ({target}) => {
         //console.log(target.value);
         const {name, value} = target;
-        setUserForm({
-            ...userForm, 
-            [name] : value,
+        setUserForm({                                                                                   //se guardan los datos que vienen del formulario.
+            ...userForm,                                                                                //se pasan los datos que ya tiene el formulario.
+            [name] : value,                                                                             //luego se actualizan los datos que tiene el campo en particular.
         })
     }
 
-const onSubmit = (event) => {
-    event.preventDefault();                                                                         //esto es para q cuando se envie el formulario,  no se actualice la pagina.
-    if(!username || !password || !email){
-        alert("debe completar los campos del formulario");
-        return;
-    }
+
+    const onSubmit = (event) => {
+        event.preventDefault();                                                                         //esto es para q cuando se envie el formulario,  no se actualice la pagina.
+        if(!username || !password || !email){                                                           //valida que los datos no vengan vacios.
+            alert("debe completar los campos del formulario");
+            return;
+        }
     console.log('enviando el formulario..');
 
+
     //guardar el user form en el listado de usuarios
-    handlerAddUser(userForm)
+    handlerAddUser(userForm);
     setUserForm(initialUseForm);                                                                    //limpia el formulario
 
-}
+    }   
 
 return(
     <form onSubmit={onSubmit}>
