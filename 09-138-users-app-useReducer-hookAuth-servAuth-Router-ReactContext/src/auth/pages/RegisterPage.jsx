@@ -1,8 +1,13 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { UserForm } from "../../components/UserForm"
 import { useParams } from "react-router-dom";
+import { UserContext } from "../../context/UserContext";
 
-export const RegisterPage = ( {users=[], handlerAddUser, initialUseForm} ) => {                             //el userSelected depende del id, por lo tanto se quita de los {}.  // se pasa el user, pero sino viene, se pasa un arreglo vacío. es es pq en las rutas, está el users/register,  y a este no se le pasa el user.
+export const RegisterPage = (  ) => {                             
+
+
+    const {users=[], initialUseForm} = useContext(UserContext);                             //ahora se obtiene la información desde UserContext.
+
 
     const [userSelected, setUserSelected] = useState(initialUseForm);                                       //el userSelected se manejará con un useState. manejando un estado propio de esta pagina y se va a poblar con el id.  // el initialUseForm es necesario para el formulario como tambn para el userSelected.
 
@@ -32,7 +37,7 @@ export const RegisterPage = ( {users=[], handlerAddUser, initialUseForm} ) => { 
 
                 <div className="col">
 
-                    <UserForm  userSelected={userSelected} handlerAddUser={handlerAddUser} initialUseForm={initialUseForm} />
+                    <UserForm  userSelected={userSelected} />
 
                 </div>
 

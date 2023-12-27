@@ -1,6 +1,11 @@
+import { useContext } from "react";
 import { UserRow } from "./UserRow";
+import { UserContext } from "../context/UserContext";
 
-export const UsersList = ({handlerUserSelectedForm, handlerRemoveUser, users = []}) => {                                                    //user se pasa como un arreglo, para pasarlo con elmap a una estructura jsx
+export const UsersList = () => {                                                    
+
+
+    const { users } = useContext(UserContext);
 
     return(
         <table className="table table-over table-striped">
@@ -17,13 +22,12 @@ export const UsersList = ({handlerUserSelectedForm, handlerRemoveUser, users = [
             <tbody>
                 {
                     users.map(({id, username, email}) => (
-                      <UserRow 
+                        <UserRow 
                             key={id} 
                             id={id} 
                             username={username} 
                             email={email} 
-                            handlerRemoveUser={handlerRemoveUser}
-                            handlerUserSelectedForm = {handlerUserSelectedForm} />
+                        />
                     ))
                 }
             </tbody>
