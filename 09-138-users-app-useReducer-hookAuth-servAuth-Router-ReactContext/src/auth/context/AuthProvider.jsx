@@ -1,7 +1,7 @@
 import { useAuth } from "../hooks/useAuth";
 import { AuthContext } from "./AuthContext"
 
-export const AuthProvider = ( {children} ) => {
+export const AuthProvider = ( {children} ) => {         //children : los elementtos hijos que van a estar anidados en el AuthProvider.
 
     const { login, handlerLogin, handlerLogout } = useAuth();
 

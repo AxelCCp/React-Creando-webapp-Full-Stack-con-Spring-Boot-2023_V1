@@ -30,7 +30,7 @@ export const LoginPage = () => {
 
     const onSubmit = (event)  => {
 
-      event.preventDefault();                                                                                       //para que no haga refresh la pagina.
+      event.preventDefault();                                                                                       //para que no perder datos con el refresh del browser.
 
       if(!username || !password){
         Swal.fire('Error de validación', 'Username y password requeridos', 'error');

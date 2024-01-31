@@ -9,6 +9,7 @@ export const CartApp = () => {
     //hay q manejar un usestate ,  un state para productos. los productos se le pasan al estado de react.
     
     const [products, setProducts] = useState([]);
+    
     useEffect(
         () => {
             setProducts(getProducts());

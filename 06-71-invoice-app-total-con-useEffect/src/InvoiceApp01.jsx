@@ -7,9 +7,11 @@ import { TotalView } from "./components/TotalView";
 import { useEffect, useState } from "react";
 
 
-const invoiceInitial = {                                           
+const invoiceInitial = {        
+
     id: 0,
     name: '',
+
     client: {
         name: '',
         lastname: '',
@@ -20,11 +22,13 @@ const invoiceInitial = {
             number: 0
         }
     },
-        company: {
-            name: '',
-            fiscalNumber: 0,
-        },
-        items: []
+
+    company: {
+        name: '',
+        fiscalNumber: 0,
+    },
+    
+    items: []
 }
 
 
