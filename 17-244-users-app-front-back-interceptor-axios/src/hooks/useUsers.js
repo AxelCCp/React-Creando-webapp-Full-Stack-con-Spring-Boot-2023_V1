@@ -32,12 +32,20 @@ export const useUsers = () => {
     const navigate = useNavigate();
 
     const getUsers = async () => {                                                          //se obtiene la lista de los usuarios. //findAll() devuelve una promesa.
-        const result = await findAll();                                                     //se usa el await para evitar la promesa.
-        console.log(result);
-        dispatch({                                                                          //con el dispatch se guarda la respuesta del findAll() en el estado de react.
-            type: 'loadingUsers',
-            payload: result.data,
-        });
+        
+        try {
+            const result = await findAll();                                                     //se usa el await para evitar la promesa.
+            console.log(result);
+            dispatch({                                                                          //con el dispatch se guarda la respuesta del findAll() en el estado de react.
+                type: 'loadingUsers',
+                payload: result.data,
+            });
+        } catch (error) {
+            if (error.response?.status == 401) {
+                handlerLogout();
+            }
+        }
+        
     }
 
     const handlerAddUser = async (user) => {
