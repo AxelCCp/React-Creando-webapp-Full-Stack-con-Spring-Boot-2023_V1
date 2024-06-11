@@ -39,6 +39,7 @@ export const LoginPage = () => {
       //aca implementamos el login
       if(username === 'admin' && password === '12345'){
           //handlerLogin
+          Swal.fire('Login ok', 'Datos correctos', 'success');
       } else {
         Swal.fire('Error de login', 'Username o password incorrectos', 'error');
       }
